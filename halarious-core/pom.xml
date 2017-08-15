@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ch.halarious</groupId>
-    <artifactId>halarious-core</artifactId>
-    <version>0.14-SNAPSHOT</version>
+    <groupId>ch.uni.kassel.halarious</groupId>
+    <artifactId>halarious-core-customized</artifactId>
+    <version>0.14E-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Halarious Core E</name>
@@ -123,41 +123,8 @@
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>external.atlassian.jgitflow</groupId>
-                <artifactId>jgitflow-maven-plugin</artifactId>
-                <version>1.0-m4.3</version>
-                <configuration>
-                    <!-- Whether to push release branches to the remote upstream. -->
-                    <pushReleases>true</pushReleases>
-                    <username>${githubUser}</username>
-                    <password>${githubPassword}</password>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>sign</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+
 </project>

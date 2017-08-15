@@ -49,7 +49,21 @@ public class HalDeserializerTest {
         TestResource result = (TestResource) gson.fromJson(json, HalResource.class);
 
         // Überprüfen
-        Assert.assertEquals("/path/3141", result.getLinkText());
+        Assert.assertEquals("path/3141", result.getLinkText().getHref());
+        Assert.assertEquals("Ein Text", result.getFilledText());
+    }
+
+    /**
+     * Einfache Referenz als String mit einer POST-Methode
+     */
+    @Test
+    public void testStringRefWithMethod() {
+        String json = "{ \"_links\": { \"self\": { \"href\": \"/path/3141\", \"method\": \"POST\" } }, \"filledText\": \"Ein Text\" }";
+        TestResource result = (TestResource) gson.fromJson(json, HalResource.class);
+
+        // Überprüfen
+        Assert.assertEquals("path/3141", result.getLinkText().getHref());
+        Assert.assertEquals("POST", result.getLinkText().getMethod());
         Assert.assertEquals("Ein Text", result.getFilledText());
     }
 
@@ -62,7 +76,7 @@ public class HalDeserializerTest {
         TestResource result = (TestResource) gson.fromJson(json, HalResource.class);
 
         // Überprüfen
-        Assert.assertEquals("/path/3141", result.getLinkText());
+        Assert.assertEquals("path/3141", result.getLinkText().getHref());
         Assert.assertEquals("Ein Text", result.getFilledText());
     }
 
@@ -111,7 +125,7 @@ public class HalDeserializerTest {
         Assert.assertEquals("Ein Text", result.getFilledText());
         Assert.assertEquals("Inneres Objekt", result.getResource().getFilledText());
         Assert.assertEquals(2, result.getResources().size());
-        Assert.assertEquals("/path/2717", result.getResources().get(0).getLinkText());
+        Assert.assertEquals("path/2717", result.getResources().get(0).getLinkText().getHref());
         Assert.assertEquals("Erstes Objekt", result.getResources().get(0).getFilledText());
         Assert.assertEquals("Zweites Objekt", result.getResources().get(1).getFilledText());
     }
@@ -123,6 +137,6 @@ public class HalDeserializerTest {
     	TestResource result = (TestResource) gson.fromJson(json, HalResource.class);
     	
     	Assert.assertEquals("Ein Text", result.getFilledText());
-    	Assert.assertEquals("/path/2717", result.getResources().get(0).getLinkText());
+    	Assert.assertEquals("path/2717", result.getResources().get(0).getLinkText().getHref());
     }
 }

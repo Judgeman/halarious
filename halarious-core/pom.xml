@@ -3,10 +3,10 @@
 
     <groupId>ch.halarious</groupId>
     <artifactId>halarious-core</artifactId>
-    <version>0.15-SNAPSHOT</version>
+    <version>0.14-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Halarious Core</name>
+    <name>Halarious Core E</name>
     <description>halarious is a simple framework for serializing and deserializing Java-Classes to JSON following the HAL-specification.</description>
     <url>http://www.halarious.ch</url>
 
@@ -23,6 +23,13 @@
             <email>stefan@surech.ch</email>
             <organization>surech.ch</organization>
             <url>http://www.surech.ch</url>
+        </developer>
+
+        <developer>
+            <name>Paul Richter</name>
+            <email>paul.richter@uni-kassel.de</email>
+            <organization>Uni Kassel</organization>
+            <url>http://www.uni-kassel.de</url>
         </developer>
     </developers>
 

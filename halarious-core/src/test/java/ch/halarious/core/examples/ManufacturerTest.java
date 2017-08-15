@@ -52,7 +52,7 @@ public class ManufacturerTest {
         ManufacturerResource manufacturer = new ManufacturerResource("/manufacturers/328764", "Manufacturer Inc.", "http://hoverdonkey.com");
         ManufacturerResource manufacturer2 = new ManufacturerResource("/manufacturers/458393", "Producer Inc.", "http://producer.com");
         ProductResource product = new ProductResource();
-        product.setSelf("/product/987");
+        product.setSelf(new Link("/product/987"));
         product.setDescription("A great product");
         product.setWeight(400);
         product.setName("A product");
@@ -64,6 +64,6 @@ public class ManufacturerTest {
         System.out.println(json);
 
         ProductResource resource = fromJson(json);
-        Assert.assertEquals(product.getSelf(), resource.getSelf());
+        Assert.assertEquals(product.getSelf().getHref(), resource.getSelf().getHref());
     }
 }

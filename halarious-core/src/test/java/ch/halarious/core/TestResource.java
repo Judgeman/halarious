@@ -29,7 +29,7 @@ public class TestResource implements HalResource {
     private String filledText = "test";
 
     @HalLink(name = "self", title = "Test")
-    private String linkText = "link";
+    private Link linkText = new Link("Link");
 
     private HalReference reference = new HalReference();
 
@@ -55,7 +55,7 @@ public class TestResource implements HalResource {
         return filledText;
     }
 
-    public String getLinkText() {
+    public Link getLinkText() {
         return linkText;
     }
 

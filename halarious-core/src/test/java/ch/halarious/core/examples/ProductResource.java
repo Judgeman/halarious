@@ -18,6 +18,7 @@ package ch.halarious.core.examples;
 import ch.halarious.core.HalEmbedded;
 import ch.halarious.core.HalLink;
 import ch.halarious.core.HalResource;
+import ch.halarious.core.Link;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class ProductResource implements HalResource {
     @HalLink
-    private String self;
+    private Link selfLink;
 
     private String name;
     private int weight;
@@ -42,12 +43,12 @@ public class ProductResource implements HalResource {
     public ProductResource(){
     }
 
-    public String getSelf() {
-        return self;
+    public Link getSelf() {
+        return selfLink;
     }
 
-    public void setSelf(String self) {
-        this.self = self;
+    public void setSelf(Link self) {
+        this.selfLink = self;
     }
 
     public String getName() {

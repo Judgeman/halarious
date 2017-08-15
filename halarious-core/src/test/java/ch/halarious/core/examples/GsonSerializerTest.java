@@ -63,7 +63,7 @@ public class GsonSerializerTest {
         JsonReader reader = Json.createReader(new StringReader(result));
         JsonObject root = reader.readObject();
         assertEquals("test", root.getString("filledText"));
-        assertEquals("link", root.getJsonObject("_links").getJsonObject("self").getString("href"));
+        assertEquals("Link [GET]", root.getJsonObject("_links").getJsonObject("self").getString("href"));
         assertEquals("Test", root.getJsonObject("_links").getJsonObject("self").getString("title"));
 
         assertEquals(2, root.getJsonObject("_embedded").getJsonArray("test").size());
@@ -85,7 +85,7 @@ public class GsonSerializerTest {
         JsonReader reader = Json.createReader(new StringReader(result));
         JsonObject root = reader.readObject();
         assertEquals("test", root.getString("filledText"));
-        assertEquals("link", root.getJsonObject("_links").getJsonObject("self").getString("href"));
+        assertEquals("Link [GET]", root.getJsonObject("_links").getJsonObject("self").getString("href"));
         assertEquals("Test", root.getJsonObject("_links").getJsonObject("self").getString("title"));
 
         assertEquals(1, root.getJsonObject("_embedded").getJsonArray("test").size());
@@ -109,7 +109,7 @@ public class GsonSerializerTest {
         JsonReader reader = Json.createReader(new StringReader(result));
         JsonObject root = reader.readObject();
         assertEquals("test", root.getString("filledText"));
-        assertEquals("link", root.getJsonObject("_links").getJsonObject("self").getString("href"));
+        assertEquals("Link [GET]", root.getJsonObject("_links").getJsonObject("self").getString("href"));
         assertEquals("Test", root.getJsonObject("_links").getJsonObject("self").getString("title"));
 
         assertEquals(2, root.getJsonObject("_embedded").getJsonArray("children").size());

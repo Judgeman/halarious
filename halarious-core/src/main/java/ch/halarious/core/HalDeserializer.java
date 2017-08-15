@@ -21,6 +21,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -29,12 +30,28 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * Created by Paul Richter on 01/03/2017.
+ */
+/*
+ * Copyright 2014 Stefan Urech
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ *    limitations under the License
+ */
+/**
  * Adapter zum Deserialisieren von HAL-Resourcen nach Json.
  *
  * @author surech
  */
 public class HalDeserializer implements JsonDeserializer<HalResource> {
-
     /**
      * Typ, den wir eigentlich deserialisieren sollten
      */
@@ -107,7 +124,11 @@ public class HalDeserializer implements JsonDeserializer<HalResource> {
 
     protected void writeLink(HalResource result, Field field, JsonElement jsonField, JsonDeserializationContext context) {
         // Einfacher Fall: Das Feld ist ein String
-        if (field.getType().equals(String.class)) {
+        /**
+         * CHANGED HERE: instead of String object we use our own object: LINK
+         * we need the method attribute for some request action definitions
+         */
+        if (field.getType().equals(Link.class)) {
             if (jsonField.isJsonObject()) {
                 writeLinkInString(result, field, jsonField, context);
             } else if (jsonField.isJsonArray()) {
@@ -159,9 +180,9 @@ public class HalDeserializer implements JsonDeserializer<HalResource> {
                 }
             }
         } else if (Collection.class.isAssignableFrom(field.getType())) {
-        	
-        	Collection collection = (Collection) HalReflectionHelper.getValue(field, result);
-        	
+
+            Collection collection = (Collection) HalReflectionHelper.getValue(field, result);
+
             // Generischer Type auslesen
             ParameterizedType gType = (ParameterizedType) field.getGenericType();
             Type[] actualTypeArguments = gType.getActualTypeArguments();
@@ -170,7 +191,7 @@ public class HalDeserializer implements JsonDeserializer<HalResource> {
                 throw new HalDeserializingException("Collection is null; no values can be added");
             }
 
-        	// Wir erwarten ein JSON-Array
+            // Wir erwarten ein JSON-Array
             if (jsonField.isJsonArray()) {
 
                 JsonArray jsonArray = jsonField.getAsJsonArray();
@@ -183,7 +204,7 @@ public class HalDeserializer implements JsonDeserializer<HalResource> {
             }
             else if(jsonField.isJsonObject())
             {
-            	writeEmbeddedInCollection(collection, actualTypeArguments[0], jsonField, context);
+                writeEmbeddedInCollection(collection, actualTypeArguments[0], jsonField, context);
             }
         }
     }
@@ -196,12 +217,17 @@ public class HalDeserializer implements JsonDeserializer<HalResource> {
      * @param jsonField JSON-Feld, welches die Referenz enthält
      * @param context GSON-Context für die Deserialisierung
      */
+    /**
+     * this function changed to create a new link object and write all attributes inside
+     */
     private void writeLinkInString(HalResource result, Field field, JsonElement jsonField, JsonDeserializationContext context) {
         // Wir haben ein einzelne Objekt, das wir nun Deserialisieren
         HalReference halRef = context.deserialize(jsonField, HalReference.class);
         // Wert schreiben
-        String href = halRef.getHref();
-        HalReflectionHelper.setValue(result, field, href);
+        Link link = new Link();
+        link.setHref(halRef.getHref());
+        link.setMethod(halRef.getMethod());
+        HalReflectionHelper.setValue(result, field, link);
     }
 
     /**

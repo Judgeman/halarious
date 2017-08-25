@@ -1,9 +1,11 @@
 package ch.halarious.core;
 
+import java.io.Serializable;
+
 /**
  * Created by Paul Richter on 01/03/2017.
  */
-public class Link implements HalResource {
+public class Link implements HalResource, Serializable {
 
     public static String defaultMethod = "GET";
 

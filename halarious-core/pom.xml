@@ -3,7 +3,7 @@
 
     <groupId>ch.uni.kassel.halarious</groupId>
     <artifactId>halarious-core-customized</artifactId>
-    <version>0.14E-SNAPSHOT</version>
+    <version>0.14.1E-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Halarious Core E</name>
